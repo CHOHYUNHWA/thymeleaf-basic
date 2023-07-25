@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -79,6 +80,65 @@ public class BasicController {
         model.addAttribute("param2", "data2");
         return "basic/link";
     }
+
+    @GetMapping("/literal")
+    public String literal(Model model){
+        model.addAttribute("data", "Spring!");
+        return "basic/literal";
+    }
+
+    @GetMapping("/operation")
+    public String operation(Model model){
+        model.addAttribute("nullData", null);
+        model.addAttribute("data", "Spring!");
+        return "basic/operation";
+    }
+
+    @GetMapping("/attribute")
+    public String attribute(){
+        return "basic/attribute";
+    }
+
+    @GetMapping("/each")
+    public String each(Model model){
+        addUsers(model);
+        return "basic/each";
+    }
+
+    @GetMapping("condition")
+    public String condition(Model model){
+        addUsers(model);
+        return "basic/condition";
+    }
+
+    @GetMapping("/block")
+    public String block(Model model){
+        addUsers(model);
+        return "basic/block";
+    }
+
+    @GetMapping("/javascript")
+    public String javascript(Model model){
+        model.addAttribute("user", new User("UserA", 10));
+        addUsers(model);
+        return "basic/javascript";
+    }
+
+    private void addUsers(Model model){
+        List<User> list = new ArrayList<>();
+        list.add(new User("UserA", 10));
+        list.add(new User("UserB", 20));
+        list.add(new User("UserC", 30));
+
+        model.addAttribute("users", list);
+    }
+
+    @GetMapping("/comments")
+    public String comments(Model model){
+        model.addAttribute("data", "Spring!");
+        return "basic/comments";
+    }
+
 
     @Data
     static class User{
